@@ -421,13 +421,6 @@ async function run() {
                     
                     logger.progress(address, '开始处理钱包', 'start');
                     logger.info(`钱包详情`, `地址: ${address}, 代理: ${proxy || '无代理'}`);
-                    
-                    logger.progress(address, '重新连接节点', 'processing');
-                    await socket.connectNode();
-
-                    logger.progress(address, '执行每日签到', 'processing');
-                    await socket.dailyCheckIn();
-
                     logger.progress(address, '检查节点状态', 'processing');
                     const isRunning = await socket.checkNodeStatus();
 
@@ -438,6 +431,13 @@ async function run() {
 
                     logger.progress(address, '检查节点积分', 'processing');
                     await socket.checkNodePoints();
+                    
+                    logger.progress(address, '重新连接节点', 'processing');
+                    await socket.connectNode();
+
+                    logger.progress(address, '执行每日签到', 'processing');
+                    await socket.dailyCheckIn();
+
 
                     logger.progress(address, '钱包处理完成', 'success');
                 } catch (error) {
